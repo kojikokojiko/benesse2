@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'package:benesse_intern/model/exam_data.dart';
+import 'package:benesse_intern/widget/webveiw.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -15,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'dart:collection';
 import 'package:table_calendar/table_calendar.dart';
 
+import 'exam_list_provider.dart';
 
 class CalenderScreenChild extends HookConsumerWidget {
   CalenderScreenChild({Key? key}) : super(key: key);
@@ -40,27 +42,26 @@ class CalenderScreenChild extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final focusingDay = useState(DateTime.now());
+    final selecingDay = useState(DateTime.now());
     // final todoDataBaseController = ref.read(todoDatabaseProvider.notifier);
-    // final todos = ref.watch(todoDatabaseProvider).todoItems;
+    final todos = ref.watch(listProvider).value!;
 
     Map<DateTime, List> eventsList = {};
 
-
     // DateTimeの配列作るところ///////////////
-    // for (var item in todos) {
-    //   DateTime date = DateTime(
-    //       item.startDay!.year, item.startDay!.month, item.startDay!.day);
-    //   if (eventsList.containsKey(date)) {
-    //     eventsList[date]!.add(item);
-    //   } else {
-    //     eventsList[date] = [item];
-    //   }
-    // }
+    for (var item in todos) {
+      DateTime date =
+          DateTime(item.examDay.year, item.examDay.month, item.examDay.day);
+      if (eventsList.containsKey(date)) {
+        eventsList[date]!.add(item);
+      } else {
+        eventsList[date] = [item];
+      }
+    }
     final events = LinkedHashMap<DateTime, List>(
       equals: isSameDay,
       hashCode: getHashCode,
-    )
-      ..addAll(eventsList);
+    )..addAll(eventsList);
 
     List getEventForDay(DateTime day) {
       return events[day] ?? [];
@@ -70,15 +71,23 @@ class CalenderScreenChild extends HookConsumerWidget {
       children: [
         TableCalendar(
           focusedDay: focusingDay.value,
-          firstDay: DateTime(now.year - 2,),
+          firstDay: DateTime(
+            now.year - 2,
+          ),
           // DateTime.utc(2020, 1, 1),
-          lastDay: DateTime(now.year + 2,),
+          lastDay: DateTime(
+            now.year + 2,
+          ),
           eventLoader: getEventForDay,
           daysOfWeekStyle: const DaysOfWeekStyle(
             decoration: BoxDecoration(
               color: Colors.black12,
             ),
           ),
+          selectedDayPredicate: (day) {
+            //以下追記部分
+            return isSameDay(selecingDay.value, day);
+          },
           daysOfWeekHeight: 25,
           headerStyle: const HeaderStyle(
             formatButtonVisible: false,
@@ -92,6 +101,7 @@ class CalenderScreenChild extends HookConsumerWidget {
               disabledTextStyle: TextStyle(color: Color(0xFFDCDCDC))),
           startingDayOfWeek: StartingDayOfWeek.monday,
           onDaySelected: (selectedDay, focusedDay) {
+            selecingDay.value = selectedDay;
             focusingDay.value = focusedDay;
 
             // showModalBottomSheet(
@@ -109,6 +119,11 @@ class CalenderScreenChild extends HookConsumerWidget {
             focusingDay.value = focusedDay;
           },
           calendarBuilders: CalendarBuilders(
+            markerBuilder: (context, date, events) {
+              if (events.isNotEmpty) {
+                return _buildEventsMarker(date, events);
+              }
+            },
             headerTitleBuilder: (BuildContext context, DateTime day) {
               return Row(
                 children: <Widget>[
@@ -174,6 +189,78 @@ class CalenderScreenChild extends HookConsumerWidget {
               );
             },
           ),
+        ),
+        ListView(
+          shrinkWrap: true,
+          children: getEventForDay(selecingDay.value)
+              .map(
+                (e) => GestureDetector(
+                  onTap: () {
+                    showDialog<void>(
+                        context: context,
+                        builder: (_) {
+                          return AlertDialogSample();
+                        });
+                  },
+                  child: Card(
+                    child: ListTile(
+                      leading: Image(image: NetworkImage(e.bookImageUrl)),
+                      title: Text(e.name.toString()),
+                      trailing: Icon(Icons.more_vert),
+                    ),
+                  ),
+                ),
+              )
+              .toList(),
+        )
+      ],
+    );
+  }
+
+  Widget _buildEventsMarker(DateTime date, List events) {
+    return Positioned(
+      // right: ,
+      bottom: events[0].index == 0 ? 8 : 0,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: events[0].index == 0 ? Colors.red[300] : Colors.black),
+        width: events[0].index == 0 ? 36 : 16.0,
+        height: events[0].index == 0 ? 36 : 16.0,
+        child: Center(
+          child: Text(
+            events[0].index == 0 ? '本番' : '${events[0].index.toString()}',
+            style: TextStyle().copyWith(
+              color: Colors.white,
+              fontSize: 12.0,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AlertDialogSample extends StatelessWidget {
+  const AlertDialogSample({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('過去問Meetに移動します', style: TextStyle(fontSize: 20)),
+      content: const Text('準備はできていますか？'),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.pop(context, 'Cancel'),
+          child: const Text('Cancel'),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => WebViewScreen(url: "https://meet.google.com/")));
+          },
+          child: const Text('OK'),
         ),
       ],
     );
