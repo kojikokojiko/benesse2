@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "603188984693",
+    "project_id": "beneseintern",
+    "storage_bucket": "beneseintern.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:603188984693:android:23c255b4daf8875114b13c",
+        "android_client_info": {
+          "package_name": "com.example.benesse_intern"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "603188984693-4n36n1hrd2q2eafhra68jh1dkmp6g6t6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.benesse_intern",
+            "certificate_hash": "207ed6210c0a6b1bd727163be6ce5b913f6a0133"
+          }
+        },
+        {
+          "client_id": "603188984693-ddtkbumfd9l63jh9qhvv9tk2t8rc4lnm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWD2Obg247aH8V0D6az1OPF0TMqReaylg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "603188984693-ddtkbumfd9l63jh9qhvv9tk2t8rc4lnm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
