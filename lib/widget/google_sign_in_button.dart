@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/authentication.dart';
+import '../view/countdown_screen.dart';
 import '../view/user_info_screen.dart';
 // import '../regataname_page.dart';
 
@@ -45,7 +46,7 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
           if (user != null) {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (context) => UserInfoScreen(user: user),
+                builder: (context) => CountDownScreen(),
               ),
             );
           }

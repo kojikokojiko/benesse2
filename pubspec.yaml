@@ -54,6 +54,12 @@ dependencies:
   shared_preferences: ^2.0.13
   table_calendar: ^3.0.6
   month_picker_dialog: ^0.4.0
+  hmssdk_flutter: ^0.7.4
+
+  permission_handler: ^8.3.0
+  http: ^0.13.4
+  provider: ^6.0.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

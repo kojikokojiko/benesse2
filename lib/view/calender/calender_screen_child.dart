@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'package:benesse_intern/model/exam_data.dart';
+import 'package:benesse_intern/view/calender/past_exam_input_page.dart';
 import 'package:benesse_intern/widget/webveiw.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:flutter/material.dart';
@@ -258,7 +259,7 @@ class AlertDialogSample extends StatelessWidget {
         TextButton(
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => WebViewScreen(url: "https://meet.google.com/")));
+                context, MaterialPageRoute(builder: (context) => PastExamInputPage()));
           },
           child: const Text('OK'),
         ),

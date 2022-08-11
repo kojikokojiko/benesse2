@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../widget/webveiw.dart';
+import '../../widget/webveiw.dart';
 
 class SelectExamDayScreen extends StatelessWidget {
   SelectExamDayScreen({Key? key}) : super(key: key);
