@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:benesse_intern/view/countdown_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:webview_flutter/webview_flutter.dart';
@@ -32,6 +33,16 @@ class _WebViewScreenState extends State<WebViewScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_title),
+        actions: [
+          Container(
+              decoration: BoxDecoration(color: Colors.red),
+              child: IconButton(onPressed: (){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CountDownScreen()));
+
+
+              }, icon: Icon(Icons.arrow_right_alt,size: 40,)))
+        ],
       ),
       body: _buildBody(),
     );

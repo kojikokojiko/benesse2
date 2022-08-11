@@ -1,10 +1,12 @@
 import 'package:benesse_intern/view/calender/calender_screen.dart';
 import 'package:benesse_intern/view/chat_screen/chat_screen.dart';
 import 'package:benesse_intern/view/motivation_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../view/countdown_screen.dart';
+import '../view/user_info_screen.dart';
 
 class SideBar extends StatelessWidget {
   const SideBar({Key? key}) : super(key: key);
@@ -48,12 +50,14 @@ class SideBar extends StatelessWidget {
             },
           ),
           ListTile(
-            title: const Text('モチべなくなった時に見てね'),
+            title: const Text('ホーム'),
             onTap: () {
+              final user =FirebaseAuth.instance.currentUser;
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MotivationScreen()));
+                  MaterialPageRoute(builder: (context) => UserInfoScreen(user: user!,)));
             },
           ),
+
         ],
       ),
     );

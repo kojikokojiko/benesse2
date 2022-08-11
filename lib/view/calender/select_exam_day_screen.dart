@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../widget/webveiw.dart';
+import '../../widget/webveiw.dart';
 
 class SelectExamDayScreen extends StatelessWidget {
   SelectExamDayScreen({Key? key}) : super(key: key);
@@ -75,19 +75,19 @@ class SelectExamDayScreen extends StatelessWidget {
   }
 
   final examDataList = [
-    ExamData(date:  DateTime(2022, 8, 30),isAfterNoon: false),
-    ExamData(date:  DateTime(2022, 8, 30),isAfterNoon: true),
-    ExamData(date:  DateTime(2022, 9, 30),isAfterNoon: false),
-    ExamData(date:  DateTime(2022, 9, 30),isAfterNoon: true),
-    ExamData(date:  DateTime(2022, 10, 30),isAfterNoon: false),
-    ExamData(date:  DateTime(2022,10, 30),isAfterNoon: true),
-    ExamData(date:  DateTime(2022, 11, 30),isAfterNoon: false),
-    ExamData(date:  DateTime(2022, 11, 30),isAfterNoon: true),
+    TempExamData(date:  DateTime(2022, 8, 30),isAfterNoon: false),
+    TempExamData(date:  DateTime(2022, 8, 30),isAfterNoon: true),
+    TempExamData(date:  DateTime(2022, 9, 30),isAfterNoon: false),
+    TempExamData(date:  DateTime(2022, 9, 30),isAfterNoon: true),
+    TempExamData(date:  DateTime(2022, 10, 30),isAfterNoon: false),
+    TempExamData(date:  DateTime(2022,10, 30),isAfterNoon: true),
+    TempExamData(date:  DateTime(2022, 11, 30),isAfterNoon: false),
+    TempExamData(date:  DateTime(2022, 11, 30),isAfterNoon: true),
   ];
 }
 
-class ExamData{
-  ExamData({required this.date,required this.isAfterNoon});
+class TempExamData{
+  TempExamData({required this.date,required this.isAfterNoon});
   final date;
   final isAfterNoon;
 }

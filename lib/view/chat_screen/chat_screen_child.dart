@@ -21,9 +21,19 @@ class ChatScreenChild extends ConsumerWidget {
     final _currentUser=FirebaseAuth.instance.currentUser!;
     // firebase.firestore.Timestamp.fromDate
     return Container(
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       child: Column(
         children: [
+          Text(
+            'TOEICについてみんなで情報交換をしよう',
+            style: TextStyle(
+              fontSize: 17,
+              decoration: TextDecoration.underline,
+              decorationColor: Colors.blue,
+            ),
+          ),
+          // TOEICについてみんなで情報交換をしよう
+
           chatDataState.when(
             data: (chatDatas) {
               return chatDatas.isNotEmpty
@@ -33,9 +43,9 @@ class ChatScreenChild extends ConsumerWidget {
                         children: chatDatas
                             .map(
                               (data) => Card(
-                                margin: data.userId==_currentUser.uid!
-                                    ? EdgeInsets.only(top: 5.0, left: 90.0, bottom: 5.0, right: 8.0)
-                                    : EdgeInsets.only(top: 5.0, left: 8.0, bottom: 5.0, right: 90.0),
+                                margin: data.userId==_currentUser.uid
+                                    ? const EdgeInsets.only(top: 5.0, left: 90.0, bottom: 5.0, right: 8.0)
+                                    : const EdgeInsets.only(top: 5.0, left: 8.0, bottom: 5.0, right: 90.0),
                                 child: ListTile(
                                   // leading: CircleAvatar(
                                   //   radius: 35,
@@ -44,7 +54,7 @@ class ChatScreenChild extends ConsumerWidget {
                                   // ),
                                   title: Text(data.content),
                                   subtitle: Row(
-                                    mainAxisAlignment: data.userId==_currentUser.uid!
+                                    mainAxisAlignment: data.userId==_currentUser.uid
                                         ? MainAxisAlignment.end
                                         : MainAxisAlignment.start,
                                     children: [
@@ -94,11 +104,11 @@ class ChatScreenChild extends ConsumerWidget {
                           content: message,
                           imageUrl:_currentUser.photoURL!,
                           name: _currentUser.displayName!,
-                          userId: _currentUser.uid!,
+                          userId: _currentUser.uid,
                         ));
 
                       },
-                      icon: Icon(Icons.send),
+                      icon: const Icon(Icons.send),
                       color: Colors.white,
                     ),
                   ),

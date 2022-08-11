@@ -1,4 +1,4 @@
-import 'package:benesse_intern/view/select_exam_day_screen.dart';
+import 'package:benesse_intern/view/calender/select_exam_day_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -15,7 +15,8 @@ class CountDownScreen extends StatefulWidget {
 class _CountDownScreenState extends State<CountDownScreen> {
   String _settingDay = '2020-09-30 12:30:50';
   int _restDay = 0;
-  int _currentScore = 100;
+  int _currentScore = 0;
+
   final isDaySetting = true;
 
   _getPrefItem() async {
@@ -40,11 +41,47 @@ class _CountDownScreenState extends State<CountDownScreen> {
     });
   }
 
+  _checkScoreIsNull() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if (prefs.getString('settingDay') == null) {
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            title: Text("あなたが本当に合格したいなら、今すぐTOEICに申し込んでください"),
+            // content: Text("メッセージメッセージメッセージメッセージメッセージメッセージ"),
+            actions: <Widget>[
+              // ボタン領域
+              // FlatButton(
+              //   child: Text("Cancel"),
+              //   onPressed: () => Navigator.pop(context),
+              // ),
+              FlatButton(
+                child: Text("OK"),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SelectExamDayScreen(),
+                    ),
+                  );
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     // 初期化時にShared Preferencesに保存している値を読み込む
     _getPrefItem();
+    _checkScoreIsNull();
   }
 
   @override
@@ -119,7 +156,7 @@ class _CountDownScreenState extends State<CountDownScreen> {
                                   ),
                                   Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       TextButton(
                                           onPressed: () {
