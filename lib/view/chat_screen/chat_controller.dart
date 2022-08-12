@@ -9,13 +9,13 @@ import '../../repository/chat_repository.dart';
 
 
 final _currentChatDataProvider =
-StreamProvider<List<ChatData>>((ref) =>
-    ref.read(chatRepositoryProvider).getChatSnapshots());
+StreamProvider.family<List<ChatData>,int>((ref,level) =>
+    ref.read(chatRepositoryProvider(level)).getChatSnapshots());
 
-final chatListProvider = StateNotifierProvider<ChatController,
-    AsyncValue<List<ChatData>>>((ref) {
-  final repo = ref.read(chatRepositoryProvider);
-  final currentList = ref.watch(_currentChatDataProvider);
+final chatListProvider = StateNotifierProvider.family<ChatController,
+    AsyncValue<List<ChatData>>,int>((ref,level) {
+  final repo = ref.read(chatRepositoryProvider(level));
+  final currentList = ref.watch(_currentChatDataProvider(level));
   return ChatController(repo, currentList);
 });
 

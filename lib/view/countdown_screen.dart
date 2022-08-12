@@ -41,7 +41,7 @@ class _CountDownScreenState extends State<CountDownScreen> {
     });
   }
 
-  _checkScoreIsNull() async {
+  _checkDayIsNull() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if (prefs.getString('settingDay') == null) {
@@ -81,7 +81,7 @@ class _CountDownScreenState extends State<CountDownScreen> {
     super.initState();
     // 初期化時にShared Preferencesに保存している値を読み込む
     _getPrefItem();
-    _checkScoreIsNull();
+    _checkDayIsNull();
   }
 
   @override
@@ -98,6 +98,7 @@ class _CountDownScreenState extends State<CountDownScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(height: 100),
+              levelWidget(_currentScore),
               Text("現在のTOEICの点数は", style: TextStyle(fontSize: 30)),
               SizedBox(height: 20),
               Text("$_currentScore点", style: TextStyle(fontSize: 40)),
@@ -188,5 +189,19 @@ class _CountDownScreenState extends State<CountDownScreen> {
         ),
       ),
     );
+  }
+
+  Widget levelWidget(score) {
+    String text;
+    if (score < 400) {
+      return Text("Level0", style: TextStyle(fontSize: 50));
+    } else if (score >= 400 && score < 600) {
+      return Text("Level1", style: TextStyle(fontSize: 50));
+    } else if (score >= 600 && score < 800) {
+      return Text("Level2", style: TextStyle(fontSize: 50));
+    } else {
+      return Text("Level3", style: TextStyle(fontSize: 50));
+    }
+
   }
 }

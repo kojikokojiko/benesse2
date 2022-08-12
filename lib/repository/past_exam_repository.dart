@@ -17,7 +17,7 @@ class PastExamRepository {
   Stream<List<PastExamScore>> getPastExamSnapshots() {
     return collection
         .limit(100)
-        .orderBy('score',descending: false)
+        .orderBy('score',descending: true)
         .snapshots()
         .map((e) => e.docs
         .map((data) =>

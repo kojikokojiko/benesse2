@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'package:benesse_intern/model/exam_data.dart';
+import 'package:benesse_intern/view/calender/dummy_zoom_screen.dart';
 import 'package:benesse_intern/view/calender/past_exam_input_page.dart';
 import 'package:benesse_intern/widget/webveiw.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
@@ -16,6 +17,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter/material.dart';
 import 'dart:collection';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'exam_list_provider.dart';
 
@@ -226,7 +228,7 @@ class CalenderScreenChild extends HookConsumerWidget {
         duration: const Duration(milliseconds: 300),
         decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: events[0].index == 0 ? Colors.red[300] : Colors.black),
+            color: events[0].index == 0 ? Colors.red : Colors.blue),
         width: events[0].index == 0 ? 36 : 16.0,
         height: events[0].index == 0 ? 36 : 16.0,
         child: Center(
@@ -245,7 +247,15 @@ class CalenderScreenChild extends HookConsumerWidget {
 
 class AlertDialogSample extends StatelessWidget {
   const AlertDialogSample({Key? key}) : super(key: key);
+  void launchMeeet()async{
+    // final url="https://meet.google.com/yxr-fefx-jtf";
+    // final url="https://meet.google.com/yxr-fefx-jtf?hs=151";
+    final url="https://meet.google.com/";
 
+    // await launchUrl(Uri.parse(url));
+
+    await launchUrl(Uri.parse(url));
+  }
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -258,8 +268,9 @@ class AlertDialogSample extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
+
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => PastExamInputPage()));
+                context, MaterialPageRoute(builder: (context) => DummyZoomScreen()));
           },
           child: const Text('OK'),
         ),

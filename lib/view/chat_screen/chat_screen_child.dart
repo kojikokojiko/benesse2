@@ -10,14 +10,14 @@ import 'package:intl/intl.dart';
 class ChatScreenChild extends ConsumerWidget {
   const ChatScreenChild({Key? key, required this.level}) : super(key: key);
 
-  final String level;
+  final  level;
 
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     String  message="";
-    final chatDataController = ref.read(chatListProvider.notifier);
-    final chatDataState = ref.watch(chatListProvider);
+    final chatDataController = ref.read(chatListProvider(level).notifier);
+    final chatDataState = ref.watch(chatListProvider(level));
     final _currentUser=FirebaseAuth.instance.currentUser!;
     // firebase.firestore.Timestamp.fromDate
     return Container(

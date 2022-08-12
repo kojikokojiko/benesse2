@@ -29,11 +29,11 @@ class _ChatScreenState extends State<ChatScreen> {
       drawer: const SideBar(),
       body: PageView(
         controller: _pageViewController,
-        children: <Widget>[
-          ChatScreenChild(level: 0.toString()),
-          ChatScreenChild(level: 1.toString()),
-          ChatScreenChild(level: 2.toString()),
-          ChatScreenChild(level: 3.toString())
+        children: const <Widget>[
+          ChatScreenChild(level: 0),
+          ChatScreenChild(level: 1),
+          ChatScreenChild(level: 2),
+          ChatScreenChild(level: 3)
 
 
         ]
@@ -42,7 +42,7 @@ class _ChatScreenState extends State<ChatScreen> {
         currentIndex: _selectedIndex,
         onTap: (index) {
           _onItemTapped(index);
-          _pageViewController.animateToPage(index, duration: Duration(milliseconds: 200), curve: Curves.easeOut);
+          _pageViewController.animateToPage(index, duration: const Duration(milliseconds: 200), curve: Curves.easeOut);
         },
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

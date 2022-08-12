@@ -7,8 +7,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 class PastExamInputPage extends HookConsumerWidget {
+
+
+
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -38,20 +41,23 @@ class PastExamInputPage extends HookConsumerWidget {
                 },
               ),
               ElevatedButton(
-                  style: ButtonStyle(backgroundColor: MaterialStateProperty.all(_tempScore.value<0||_tempScore.value.isNaN?Colors.grey:Colors.red)),
+                  style: ButtonStyle(backgroundColor: MaterialStateProperty.all(_tempScore.value<0?Colors.grey:Colors.blue)),
 
                   onPressed: _tempScore.value<0?(){}:() {
                     final user = FirebaseAuth.instance.currentUser;
                     final inputModel = PastExamScore(
                       score: _tempScore.value,
-                      imageUrl: "",
-                      // name:,
-                      // userId:,
+                      imageUrl: user!.photoURL!,
+                      name:user!.displayName!,
+                      userId:user.uid,
 
                     );
 
 
-                    // pastExamListController.sendPastExam();
+                    pastExamListController.sendPastExam(inputModel);
+
+
+
 
 
                     Navigator.push(context,
